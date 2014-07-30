@@ -53,8 +53,8 @@ describe Committee::RequestValidator do
     e = assert_raises(Committee::InvalidRequest) do
       call(data)
     end
-    message = %{Invalid request.\n\n#/name: failed schema #/definitions/app/links/0/schema/properties/name: Expected string to match pattern "/^[a-z][a-z0-9-]{3,30}$/", value was: %@!.}
-    assert_equal message, e.message
+    message_re = /Invalid request.+Expected string to match pattern/im
+    assert_match message_re, e.message
   end
 
   private
